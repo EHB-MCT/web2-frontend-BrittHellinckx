@@ -110,15 +110,31 @@ nav a {
 }
 
 /*MAIN*/
-.gen main {
+#genBtn {
     margin-top: 12.5%;
     text-align: center;
 }
 
-.gen button {
+#colour {
+    text-align: center;
+    margin-top: 12.5%;
+
+}
+
+#photo {
+    text-align: center;
+    margin-top: 2.5%;
+}
+
+
+.mainGen button {
     background-color: white;
     margin: 5% 2% 0;
     padding: 1% 5%;
     border: none;
     border-radius: 25px;
 }
+
+/*******************
+      POSTS
+******************/
