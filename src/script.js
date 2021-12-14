@@ -1,5 +1,7 @@
 "use strict";
 
+import _ from 'lodash';
+
 //USE RIGHT BUTTONS
 window.onload = function () {
     document.getElementById('photoBtn').addEventListener('click', e => {
@@ -18,10 +20,12 @@ window.onload = function () {
 }
 
 async function fetching(number) {
+    console.log(number);
     fetch(`https://picsum.photos/id/${number}/info`)
         .then(response => response.json())
         .then(function (data) {
             console.log(data)
+
             document.getElementById('genBtn').style.display = "none"
             document.getElementById('colour').style.display = "none"
             document.getElementById('photo').innerHTML = `<h2>Here is your inspiration for your next masterpiece</h2>
@@ -32,6 +36,8 @@ async function fetching(number) {
         })
 }
 async function fetching2(c1, c2, c3, c4) {
+    console.log(c1, c2, c3, c4)
+
     document.getElementById('genBtn').style.display = "none"
     document.getElementById('photo').style.display = "none"
     document.getElementById('colour').innerHTML = `<h2>Here is your inspiration for your next masterpiece</h2>
