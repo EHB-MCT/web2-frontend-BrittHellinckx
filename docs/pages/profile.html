@@ -6,14 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="https://use.typekit.net/xxl2jdj.css">
+    <link href="http://fonts.cdnfonts.com/css/arial-nova" rel="stylesheet">
     <link rel="stylesheet" href="./../style.css">
+    
     <script src="./../main.js"></script>
 
     <title>Course Project Britt Hellinckx</title>
 </head>
 
 <body>
-    <header>
+    <header class="navProfile">
         <a href="./../index.html">
             <img src="./../img/logo_tiny.png" alt="Tiny logo">
         </a>
@@ -26,11 +29,11 @@
     </header>
 
     <main>
-        <div>
-            <img src="" alt="Profile picture">
+        <div class="banner">
+            <img src="./../img/icon.jpg" alt="Profile picture">
             <div>
                 <h2>Name</h2>
-                <section>
+                <section class="info">
                     <p>4 saved</p>
                     <p>5 masterpieces</p>
                     <p>3 posts</p>
@@ -39,12 +42,12 @@
         </div>
 
 
-        <ul>
-            <li><a href="#">Saved</a></li>
-            <li><a href="#">masterpieces</a></li>
-            <li><a href="#">Posts</a></li>
-            <li><a href="#">Liked</a></li>
-        </ul>
+        <div id="mainNav">
+            <button id="savedBtn">Saved</button>
+            <button id="artBtn">Masterpieces</button>
+            <button id="postsBtn">Posts</button>
+            <button id="likedBtn">Liked</button>
+        </div>
 
         <section id="saved">
             <div>
@@ -57,7 +60,7 @@
             <p>Time to start creating</p>
         </section>
 
-        <section id="masterpieces">
+        <section id="art">
             <img src="" alt="">
             <img src="" alt="">
         </section>

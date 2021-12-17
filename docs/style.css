@@ -2,26 +2,32 @@
       GENERAL
 ******************/
 body {
-    background-color: #3A3A3A;
+    background-color: #1d1d1d;
     margin-left: 0;
     margin-right: 0;
 }
 
-
 h2 {
-    font-family: CoconPro;
+    font-family: ff-cocon-pro, sans-serif;
+    font-weight: 400;
+    font-style: normal;
     color: #F18918;
 }
 
-
 p {
-    font-family: Arial, Helvetica, sans-serif;
-    /*ARIAL NOVA*/
+    font-family: 'Arial Nova', sans-serif;
+}
+
+.pfpicture {
+    border-radius: 50px;
+    margin: 5% 0;
 }
 
 /*NAVIGATION*/
 nav {
-    font-family: CoconPro;
+    font-family: ff-cocon-pro, sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .active {
@@ -83,32 +89,35 @@ nav a {
 }
 
 /*******************
-     GENERATOR
+    GEN & POSTS
 ******************/
 /*HEADER*/
-.gen header {
+.sidePage header {
     display: flex;
     justify-content: space-between;
 }
 
-.gen header img {
+.sidePage header img {
     height: 12.5vh;
-    margin: 2% 3% 0;
+    /*margin: 2% 1% 0 10%;*/
 }
 
-.gen header nav {
+.sidePage header nav {
     margin-top: 10%
 }
 
-.navGen {
+.navPage {
     display: flex;
 }
 
-.navGen li {
+.navPage li {
     margin: 0 15%;
     font-size: 1.5em;
 }
 
+/*******************
+     GENERATOR
+******************/
 /*MAIN*/
 #genBtn {
     margin-top: 12.5%;
@@ -117,7 +126,7 @@ nav a {
 
 #colour {
     text-align: center;
-    margin-top: 12.5%;
+    margin-top: 10%;
 
 }
 
@@ -125,7 +134,6 @@ nav a {
     text-align: center;
     margin-top: 2.5%;
 }
-
 
 .mainGen button {
     background-color: white;
@@ -138,3 +146,95 @@ nav a {
 /*******************
       POSTS
 ******************/
+.mainPosts {
+    margin-top: 2.5%;
+    text-align: center;
+}
+
+/*******************
+      PROFILE
+******************/
+/*HEADER*/
+.navProfile {
+    display: flex;
+
+}
+
+.navProfile img {
+    height: 12.5vh;
+    margin: 2% 1% 0 10%;
+}
+
+.navProfile nav ul {
+    display: flex;
+    margin-top: 22%;
+}
+
+.navProfile nav ul li {
+    margin: 0 15%;
+    font-size: 1.5em;
+}
+
+/*MAIN*/
+.banner {
+    background-color: #F18918;
+    display: flex;
+    flex-direction: row;
+    margin-top: 2.5%;
+    padding: 1% 15%;
+}
+
+.banner img {
+    height: 17.5vh;
+    margin-right: 2%;
+}
+
+.banner h2 {
+    color: black;
+}
+
+.info {
+    display: flex;
+    width: 150%
+}
+
+.info p {
+    margin: 0;
+    padding-right: 5%;
+}
+
+/*MAIN NAVIGATION*/
+#mainNav {
+    margin-left: 15%;
+    margin-top: 2%;
+}
+
+#mainNav button {
+    background-color: #1d1d1d;
+    color: #C2C2C2;
+    border: none;
+    margin-right: 5%;
+    font-size: 1.05em;
+}
+
+#mainNav button:focus {
+    color: white;
+    border-bottom: solid 1px #F18918;
+}
+
+/*MAIN*/
+#saved {
+    display: none;
+}
+
+#art {
+    display: none;
+}
+
+#posts {
+    display: none;
+}
+
+#liked {
+    display: none;
+}

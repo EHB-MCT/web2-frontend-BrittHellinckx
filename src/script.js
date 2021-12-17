@@ -2,24 +2,48 @@
 
 import _ from 'lodash';
 
-//USE RIGHT BUTTONS
+
 window.onload = function () {
+    //RANDOM PHOTO
     document.getElementById('photoBtn').addEventListener('click', e => {
         e.preventDefault();
         let randomNumber = Math.floor(Math.random() * 50);
-        fetching(randomNumber);
+        randomPhoto(randomNumber);
     })
+
+    //RANDOM COLOURS
     document.getElementById('colourBtn').addEventListener('click', e => {
         e.preventDefault();
         let random1 = Math.floor(Math.random() * 0xffffff).toString(16);
         let random2 = Math.floor(Math.random() * 0xffffff).toString(16);
         let random3 = Math.floor(Math.random() * 0xffffff).toString(16);
         let random4 = Math.floor(Math.random() * 0xffffff).toString(16);
-        fetching2(random1, random2, random3, random4);
+        randomColours(random1, random2, random3, random4);
     })
+
+    //PROFILE SELECTED SUBNAVIGATION
+    document.getElementById('savedBtn').addEventListener('click', e => {
+        e.preventDefault();
+        saved();
+    });
+    document.getElementById('artBtn').addEventListener('click', e => {
+        e.preventDefault();
+        art();
+    });
+    document.getElementById('postsBtn').addEventListener('click', e => {
+        e.preventDefault();
+        posts();
+    });
+    document.getElementById('likedBtn').addEventListener('click', e => {
+        e.preventDefault();
+        liked();
+    });
+
 }
 
-async function fetching(number) {
+
+//RANDOM PHOTO
+async function randomPhoto(number) {
     console.log(number);
     fetch(`https://picsum.photos/id/${number}/info`)
         .then(response => response.json())
@@ -35,7 +59,9 @@ async function fetching(number) {
                                                         <button id="save">Save</button>`
         })
 }
-async function fetching2(c1, c2, c3, c4) {
+
+//RANDOM COLOURS
+async function randomColours(c1, c2, c3, c4) {
     console.log(c1, c2, c3, c4)
 
     document.getElementById('genBtn').style.display = "none"
@@ -49,3 +75,25 @@ async function fetching2(c1, c2, c3, c4) {
                                                     </div>
                                                     <button id="Save">Save</button>`
 }
+
+//PROFILE SELECTED SUBNAVIGATION
+async function saved() {
+    console.log("saved")
+}
+
+function art() {
+    console.log("art")
+}
+
+function posts() {
+    console.log("posts")
+}
+
+function liked() {
+    console.log("liked")
+}
+
+
+
+//event.target.closest('.?').id .? = id 
+//event.target.classname.indexOf('?') !== -1
