@@ -146,8 +146,33 @@ nav a {
       POSTS
 ******************/
 .mainPosts {
-    margin-top: 2.5%;
     text-align: center;
+}
+
+.mainPosts h2 {
+    margin-top: 2.5%;
+    margin-bottom: 0;
+}
+
+#postsBlock {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.singlePost {
+    width: 25%;
+    margin: 2% 0;
+}
+
+.singlePost img {
+    padding-top: 15%;
+    width: 80%;
+}
+
+.singlePost .colourPost {
+    padding: 0;
+    width: 40%;
 }
 
 /*******************
@@ -174,7 +199,7 @@ nav a {
     font-size: 1.5em;
 }
 
-/*MAIN*/
+/*MAIN BANNER*/
 .banner {
     background-color: #F18918;
     display: flex;
@@ -221,7 +246,30 @@ nav a {
     border-bottom: solid 1px #F18918;
 }
 
-/*MAIN*/
+/*MAIN SELECTIONS*/
+/*GENERAL*/
+.selectBlock {
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    margin-top: 2.5%;
+}
+
+.selectPost {
+    width: 20.5%;
+    margin: 2% 1.5%;
+    overflow: hidden;
+}
+
+.selectPost img {
+    height: 30vh;
+}
+
+.selectPost .colourSelect {
+    height: 15vh;
+}
+
+/*SPECIFIC*/
 #saved {
     display: none;
 }
