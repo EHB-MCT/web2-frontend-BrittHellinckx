@@ -22,6 +22,8 @@ window.onload = function () {
             let random4 = Math.floor(Math.random() * 0xffffff).toString(16);
             randomColours(random1, random2, random3, random4);
         })
+        //
+
     }
     //Post page
     else if (window.location.pathname == '/docs/pages/posts.html') {
@@ -56,6 +58,7 @@ async function randomPhoto(number) {
     fetch(`https://picsum.photos/id/${number}/info`)
         .then(response => response.json())
         .then(function (data) {
+            console.log(data)
             document.getElementById('genBtn').style.display = "none"
             document.getElementById('colour').style.display = "none"
             document.getElementById('photo').innerHTML = `<h2>Here is your inspiration for your next masterpiece</h2>
@@ -63,7 +66,11 @@ async function randomPhoto(number) {
                                                             <img src="${data.download_url}" alt="random" width="600">
                                                         </div>
                                                         <button id="save">Save</button>`
-        })
+            document.getElementById('save').addEventListener('click', e => {
+                e.preventDefault();
+                savePhoto(data.author, data.download_url);
+            });
+        });
 }
 //RANDOM COLOURS
 async function randomColours(c1, c2, c3, c4) {
@@ -77,6 +84,55 @@ async function randomColours(c1, c2, c3, c4) {
                                                         <img src="http://www.thecolorapi.com/id?format=svg&hex=${c4}">
                                                     </div>
                                                     <button id="save">Save</button>`
+    document.getElementById('save').addEventListener('click', e => {
+        e.preventDefault();
+        saveColour(c1, c2, c3, c4);
+    });
+}
+//Save random photo
+function savePhoto(author, url) {
+    //Collect art
+    let art = {
+        type: "photo",
+        author,
+        url
+    }
+    //Post art
+    fetch('https://web2-courseproject-britth.herokuapp.com/artpieces', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(art)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('art saved', data);
+        });
+
+}
+//Save random colour
+function saveColour(c1, c2, c3, c4) {
+    //Collect art
+    let art = {
+        type: "colour",
+        c1,
+        c2,
+        c3,
+        c4
+    }
+    //Post art
+    fetch('https://web2-courseproject-britth.herokuapp.com/artpieces', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(art)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('art saved', data);
+        });
 }
 
 ///////////////////////POSTS//////////////////////////////

@@ -181,12 +181,11 @@ nav a {
 /*HEADER*/
 .navProfile {
     display: flex;
-
 }
 
 .navProfile img {
     height: 12.5vh;
-    margin: 2% 1% 0 10%;
+    /*margin: 2% 1% 0 10%;*/
 }
 
 .navProfile nav ul {
@@ -253,6 +252,7 @@ nav a {
     flex-wrap: wrap;
     text-align: center;
     margin-top: 2.5%;
+    margin-left: 5%;
 }
 
 .selectPost {
