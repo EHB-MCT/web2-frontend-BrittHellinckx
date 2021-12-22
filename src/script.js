@@ -22,8 +22,6 @@ window.onload = function () {
             let random4 = Math.floor(Math.random() * 0xffffff).toString(16);
             randomColours(random1, random2, random3, random4);
         })
-        //
-
     }
     //Post page
     else if (window.location.pathname == '/docs/pages/posts.html') {
@@ -31,8 +29,6 @@ window.onload = function () {
     }
     //Profile page
     else if (window.location.pathname == '/docs/pages/profile.html') {
-        //Number of saved/ art/ posts/ liked
-
         //Subnavigation eventlistener
         document.getElementById('savedBtn').addEventListener('click', e => {
             e.preventDefault();
@@ -52,13 +48,14 @@ window.onload = function () {
         });
     }
 }
-////////////////////GENERATOR/////////////////////////////
-//RANDOM PHOTO
+///////////////////////////////////////////GENERATOR////////////////////////////
+//Get a random photo
 async function randomPhoto(number) {
+    //Fetch photo
     fetch(`https://picsum.photos/id/${number}/info`)
         .then(response => response.json())
         .then(function (data) {
-            console.log(data)
+            //Insert photo
             document.getElementById('genBtn').style.display = "none"
             document.getElementById('colour').style.display = "none"
             document.getElementById('photo').innerHTML = `<h2>Here is your inspiration for your next masterpiece</h2>
@@ -66,14 +63,16 @@ async function randomPhoto(number) {
                                                             <img src="${data.download_url}" alt="random" width="600">
                                                         </div>
                                                         <button id="save">Save</button>`
+            //Save eventlistener
             document.getElementById('save').addEventListener('click', e => {
                 e.preventDefault();
                 savePhoto(data.author, data.download_url);
             });
         });
 }
-//RANDOM COLOURS
+//Get random colours
 async function randomColours(c1, c2, c3, c4) {
+    //Insert colours
     document.getElementById('genBtn').style.display = "none"
     document.getElementById('photo').style.display = "none"
     document.getElementById('colour').innerHTML = `<h2>Here is your inspiration for your next masterpiece</h2>
@@ -84,6 +83,7 @@ async function randomColours(c1, c2, c3, c4) {
                                                         <img src="http://www.thecolorapi.com/id?format=svg&hex=${c4}">
                                                     </div>
                                                     <button id="save">Save</button>`
+    //Save eventlistener
     document.getElementById('save').addEventListener('click', e => {
         e.preventDefault();
         saveColour(c1, c2, c3, c4);
@@ -109,7 +109,8 @@ function savePhoto(author, url) {
         .then(data => {
             console.log('art saved', data);
         });
-
+    //Go to profile
+    window.location.replace("/docs/pages/profile.html");
 }
 //Save random colour
 function saveColour(c1, c2, c3, c4) {
@@ -133,17 +134,21 @@ function saveColour(c1, c2, c3, c4) {
         .then(data => {
             console.log('art saved', data);
         });
+    //Go to profile
+    window.location.replace("/docs/pages/profile.html");
 }
 
-///////////////////////POSTS//////////////////////////////
+/////////////////////////////////////////////POSTS//////////////////////////////
+//Get all posts
 function loadPosts() {
+    //Fetch posts
     fetch('https://web2-courseproject-britth.herokuapp.com/posts')
         .then(response => response.json())
         .then(function (data) {
             let post = document.getElementById('postsBlock')
             let htmlString = ""
 
-            //Displaying all data
+            //Display all posts
             data.forEach(post => {
                 if (post.type == "photo") {
                     htmlString += `<div class="singlePost">
@@ -162,8 +167,8 @@ function loadPosts() {
         });
 }
 
-//////////////////////PROFILE/////////////////////////////
-//PROFILE SELECTED SUBNAVIGATION
+///////////////////////////////////////////PROFILE//////////////////////////////
+//Save selected
 function saved() {
     //Displaying correct section
     document.getElementById('saved').style.display = "flex";
@@ -171,15 +176,16 @@ function saved() {
     document.getElementById('posts').style.display = "none";
     document.getElementById('liked').style.display = "none";
 
-    //Fetching all saved
+    //Fetching all artpieces
     fetch('https://web2-courseproject-britth.herokuapp.com/artpieces')
         .then(response => response.json())
         .then(function (data) {
             let savedDoc = document.getElementById('saved')
             let htmlString = ""
 
-            //Displaying all data
+            //Displaying data
             data.forEach(saved => {
+                //Only display data if saved
                 if (saved.status == "saved") {
                     if (saved.type == "photo") {
                         htmlString += `<div class="selectPost">
@@ -199,7 +205,7 @@ function saved() {
             savedDoc.innerHTML = htmlString
         });
 }
-
+//Art selected
 function art() {
     //Displaying correct section
     document.getElementById('art').style.display = "flex";
@@ -207,15 +213,16 @@ function art() {
     document.getElementById('posts').style.display = "none";
     document.getElementById('liked').style.display = "none";
 
-    //Fetching all saved
+    //Fetching all artpieces
     fetch('https://web2-courseproject-britth.herokuapp.com/artpieces')
         .then(response => response.json())
         .then(function (data) {
             let artDoc = document.getElementById('art')
             let htmlString = ""
 
-            //Displaying all data
+            //Displaying data
             data.forEach(art => {
+                //Only display data if created
                 if (art.status == "created") {
                     if (art.type == "photo") {
                         htmlString += `<div class="selectPost">
@@ -235,7 +242,7 @@ function art() {
             artDoc.innerHTML = htmlString
         });
 }
-
+//Posts selected
 function posts() {
     //Displaying correct section
     document.getElementById('posts').style.display = "flex";
@@ -243,15 +250,16 @@ function posts() {
     document.getElementById('saved').style.display = "none";
     document.getElementById('liked').style.display = "none";
 
-    //Fetching all saved
+    //Fetching all artpieces
     fetch('https://web2-courseproject-britth.herokuapp.com/artpieces')
         .then(response => response.json())
         .then(function (data) {
             let postDoc = document.getElementById('posts')
             let htmlString = ""
 
-            //Displaying all data
+            //Displaying data
             data.forEach(post => {
+                //Only display data if posted
                 if (post.status == "posted") {
                     if (post.type == "photo") {
                         htmlString += `<div class="selectPost">
@@ -271,7 +279,7 @@ function posts() {
             postDoc.innerHTML = htmlString
         });
 }
-
+//Liked selected
 function liked() {
     //Displaying correct section
     document.getElementById('liked').style.display = "flex";
@@ -279,14 +287,16 @@ function liked() {
     document.getElementById('posts').style.display = "none";
     document.getElementById('saved').style.display = "none";
 
+    //Fetching all posts
     fetch('https://web2-courseproject-britth.herokuapp.com/posts')
         .then(response => response.json())
         .then(function (data) {
             let likeDoc = document.getElementById('liked')
             let htmlString = ""
 
-            //Displaying all data
+            //Displaying data
             data.forEach(like => {
+                //Only display data if liked
                 if (like.liked) {
                     if (like.type == "photo") {
                         htmlString += `<div class="selectPost">
