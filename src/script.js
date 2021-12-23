@@ -3,10 +3,18 @@ import _, {
     initial
 } from 'lodash';
 
+let fileName
+
+function updateFilename() {
+    fileName = window.location.pathname.split("/")
+    fileName = fileName[fileName.length - 1]
+}
+
+updateFilename()
+
 window.onload = function () {
-    console.log('test')
     //Generator page
-    if (window.location.pathname == 'http://127.0.0.1:5500/docs/pages/generator.html' || window.location.pathname == "https://ehb-mct.github.io/web2-frontend-BrittHellinckx/pages/generator.html") {
+    if (fileName == 'generator.html') {
         //Random photo eventlistener
         document.getElementById('photoBtn').addEventListener('click', e => {
             e.preventDefault();
@@ -24,11 +32,11 @@ window.onload = function () {
         })
     }
     //Post page
-    else if (window.location.pathname == 'http://127.0.0.1:5500/docs/pages/posts.html' || window.location.pathname == "https://ehb-mct.github.io/web2-frontend-BrittHellinckx/pages/posts.html") {
+    else if (fileName == 'posts.html') {
         loadPosts();
     }
     //Profile page
-    else if (window.location.pathname == 'http://127.0.0.1:5500/docs/pages/profile.html' || window.location.pathname == "https://ehb-mct.github.io/web2-frontend-BrittHellinckx/pages/profile.html") {
+    else if (fileName == 'profile.html') {
         //Subnavigation eventlistener
         document.getElementById('savedBtn').addEventListener('click', e => {
             e.preventDefault();
@@ -48,7 +56,7 @@ window.onload = function () {
         });
     }
     //Other profile
-    else if (window.location.pathname == 'http://127.0.0.1:5500/docs/pages/otherProfile.html' || window.location.pathname == "https://ehb-mct.github.io/web2-frontend-BrittHellinckx/pages/otherProfile.html") {
+    else if (fileName == 'otherProfile.html') {
         loadPosts()
     }
 }
@@ -114,7 +122,7 @@ function savePhoto(author, url) {
         .then(response => response.json())
         .then(data => {
             console.log('art saved', data);
-            setTimeout(window.location.replace("/docs/pages/profile.html"), 7000)
+            setTimeout(window.location.replace("profile.html"), 7000)
         });
 }
 //Save random colour
@@ -138,7 +146,7 @@ function saveColour(c1, c2, c3, c4) {
         .then(response => response.json())
         .then(data => {
             console.log('art saved', data);
-            setTimeout(window.location.replace("/docs/pages/profile.html"), 7000)
+            setTimeout(window.location.replace("profile.html"), 7000)
         });
 }
 
