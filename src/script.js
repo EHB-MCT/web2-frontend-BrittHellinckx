@@ -1,6 +1,3 @@
-//npx webpack watch : auto push script to main
-//https://web2-courseproject-britth.herokuapp.com/
-
 "use strict";
 import _, {
     initial
