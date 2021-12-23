@@ -4,6 +4,7 @@ import _, {
 } from 'lodash';
 
 window.onload = function () {
+    console.log('test')
     //Generator page
     if (window.location.pathname == 'http://127.0.0.1:5500/docs/pages/generator.html' || window.location.pathname == "https://ehb-mct.github.io/web2-frontend-BrittHellinckx/pages/generator.html") {
         //Random photo eventlistener
