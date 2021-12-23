@@ -6,6 +6,8 @@ import _, {
     initial
 } from 'lodash';
 
+
+
 window.onload = function () {
     //Generator page
     if (window.location.pathname == '/docs/pages/generator.html') {
@@ -171,21 +173,23 @@ function loadPosts() {
                 singlePost[i].addEventListener('click', e => {
                     e.preventDefault()
 
-                    loadSinglePost(data[i])
+                    loadSinglePost(data[i]._id)
                 })
             }
         });
 }
 
-function loadSinglePost(data) {
-    console.log(data)
+function loadSinglePost(id) {
     let focus = document.getElementById('postFocus')
     focus.style.display = "initial"
     let htmlString = ""
 
-    if (data.type == "photo") {
-        htmlString += `<div class="singlePost">
-                            <button id="back">< back</button>
+    fetch(`https://web2-courseproject-britth.herokuapp.com/posts/:?id=${id}`)
+        .then(response => response.json())
+        .then(function (data) {
+            if (data.type == "photo") {
+                htmlString += `<div class="singlePost">
+                            <button id="back">back</button>
                             <figure class="imgPhoto">
                                 <img src="${data.url}">
                                 <figcaption>Creator</figcaption>
@@ -196,9 +200,9 @@ function loadSinglePost(data) {
                                 <button id="${data.liked}">Like</button>
                             </div>
                         </div>`
-    } else if (data.type == "colour") {
-        htmlString += `<div class="singlePost">
-                            <button id="back">< back</button>
+            } else if (data.type == "colour") {
+                htmlString += `<div class="singlePost">
+                            <button id="back">back</button>
                             <div class="leftColours">
                                 <div class="imgColours">
                                     <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c1}">
@@ -214,20 +218,41 @@ function loadSinglePost(data) {
                                 <button id="${data.liked}">Like</button>
                             </div>
                        </div>`
+            }
+            focus.innerHTML = htmlString
+            document.getElementById('back').addEventListener('click', e => {
+                e.preventDefault()
+                focus.style.display = "none"
+            })
+            document.getElementById(data.liked).addEventListener('click', e => {
+                e.preventDefault()
+                like(data)
+            })
+        })
+}
+
+function like(postData) {
+    let liked = !postData.liked;
+    let updateLiked = {
+        liked
     }
-    focus.innerHTML = htmlString
-    document.getElementById('back').addEventListener('click', e => {
-        e.preventDefault()
-        focus.style.display = "none"
-    })
-    document.getElementById(data.liked).addEventListener('click', e=>{
-        e.preventDefault()
-        
-    })
-    
+    fetch(`https://web2-courseproject-britth.herokuapp.com/posts/:?id=${postData._id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updateLiked)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Post likestatus changed', data);
+            setTimeout(window.location.reload(), 5000)
+
+        });
 }
 
 ///////////////////////////////////////////PROFILE//////////////////////////////
+let profilePost = document.getElementsByClassName('selectPost')
 //Save selected
 function saved() {
     //Displaying correct section
@@ -263,6 +288,12 @@ function saved() {
                 }
             })
             savedDoc.innerHTML = htmlString
+            for (let i = 0; i < profilePost.length; i++) {
+                profilePost[i].addEventListener('click', e => {
+                    e.preventDefault()
+                    loadProfilePost(data)
+                })
+            }
         });
 }
 //Art selected
@@ -300,6 +331,12 @@ function art() {
                 }
             })
             artDoc.innerHTML = htmlString
+            for (let i = 0; i < profilePost.length; i++) {
+                profilePost[i].addEventListener('click', e => {
+                    e.preventDefault()
+                    loadProfilePost(data)
+                })
+            }
         });
 }
 //Posts selected
@@ -337,6 +374,12 @@ function posts() {
                 }
             })
             postDoc.innerHTML = htmlString
+            for (let i = 0; i < profilePost.length; i++) {
+                profilePost[i].addEventListener('click', e => {
+                    e.preventDefault()
+                    loadProfilePost(data)
+                })
+            }
         });
 }
 //Liked selected
@@ -360,19 +403,26 @@ function liked() {
                 if (like.liked) {
                     if (like.type == "photo") {
                         htmlString += `<div class="selectPost">
-                                            <img  src="${like.url}"> 
+                                            <img id="${like._id}" src="${like.url}"> 
                                         </div>`
                     } else if (like.type == "colour") {
-                        htmlString += `<div class="selectPost">
-                                        <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c1}">
-                                        <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c2}">
-                                        <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c3}">
-                                        <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c4}">
+                        htmlString += `<div id="gg" class="selectPost">
+                                        <img id="${like._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c1}">
+                                        <img id="${like._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c2}">
+                                        <img id="${like._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c3}">
+                                        <img id="${like._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c4}">
                                    </div>`
                     }
                     return;
                 }
             })
             likeDoc.innerHTML = htmlString
+            //
+
+            for (let i = 0; i < profilePost.length; i++) {
+                profilePost[i].addEventListener('click', e => {
+                    loadSinglePost(e.target.id)
+                })
+            }
         });
 }
