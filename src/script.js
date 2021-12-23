@@ -442,17 +442,17 @@ function loadSingleArt(id) {
                                     <p>Type: ${data.type}</p>
                                     <p>Author: ${data.author}</p>`
                 if (data.status == "saved") {
-                    htmlString += `<button id="change" value:"create">Create</button>
+                    htmlString += `<button id="change" value="created">Create</button>
                                     <button id="delete">Delete</button>
                             </div>
                         </div>`
                 } else if (data.status == "created") {
-                    htmlString += `<button id="change" value:"post">Post</button>
+                    htmlString += `<button id="change" value="posted">Post</button>
                                     <button id="delete">Delete</button>
                             </div>
                         </div>`
                 } else {
-                    htmlString += `<button id="change" value:"create">Unpost</button>
+                    htmlString += `<button id="change" value="created">Unpost</button>
                                     <button id="delete">Delete</button>
                             </div>
                         </div>`
@@ -475,17 +475,17 @@ function loadSingleArt(id) {
                                 <p>Type: ${data.type}</p>
                                 <p>Author: ${data.author}</p>`
                 if (data.status == "saved") {
-                    htmlString += `<button id="change" value:"create">Create</button>
+                    htmlString += `<button id="change" value="created">Create</button>
                                     <button id="delete">Delete</button>
                                     </div>
                                     </div>`
                 } else if (data.status == "created") {
-                    htmlString += `<button id="change" value:"post">Post</button>
+                    htmlString += `<button id="change" value="posted">Post</button>
                                     <button id="delete">Delete</button>
                                     </div>
                                     </div>`
                 } else {
-                    htmlString += `<button id="change" value:"create">Unpost</button>
+                    htmlString += `<button id="change" value="created">Unpost</button>
                                     <button id="delete">Delete</button>
                                     </div>
                                     </div>`
@@ -501,8 +501,9 @@ function loadSingleArt(id) {
                 deleteArt(data._id);
             })
             document.getElementById('change').addEventListener('click', e => {
+                let changeInto = document.getElementById('change').value
                 e.preventDefault()
-                changeArt(data)
+                changeArt(data._id, changeInto)
             })
         })
 }
@@ -519,6 +520,22 @@ function deleteArt(id) {
         });
 }
 
-function changeArt() {
+function changeArt(id, status) {
+    let art = {
+        status
+    }
+
+    fetch(`https://web2-courseproject-britth.herokuapp.com/artpieces/:?id=${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(art)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Artpiece status changed', data);
+            setTimeout(window.location.reload(), 7000)
+        });
 
 }
