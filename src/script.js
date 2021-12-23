@@ -8,7 +8,7 @@ import _, {
 
 window.onload = function () {
     //Generator page
-    if (window.location.pathname == '/docs/pages/generator.html') {
+    if (window.location.pathname == 'http://127.0.0.1:5500/docs/pages/generator.html') {
         //Random photo eventlistener
         document.getElementById('photoBtn').addEventListener('click', e => {
             e.preventDefault();
@@ -26,11 +26,11 @@ window.onload = function () {
         })
     }
     //Post page
-    else if (window.location.pathname == '/docs/pages/posts.html') {
+    else if (window.location.pathname == 'http://127.0.0.1:5500/docs/pages/posts.html') {
         loadPosts();
     }
     //Profile page
-    else if (window.location.pathname == '/docs/pages/profile.html') {
+    else if (window.location.pathname == 'http://127.0.0.1:5500/docs/pages/profile.html') {
         //Subnavigation eventlistener
         document.getElementById('savedBtn').addEventListener('click', e => {
             e.preventDefault();
@@ -50,7 +50,7 @@ window.onload = function () {
         });
     }
     //Other profile
-    else if (window.location.pathname == '/docs/pages/otherProfile.html') {
+    else if (window.location.pathname == 'http://127.0.0.1:5500/docs/pages/otherProfile.html') {
         loadPosts()
     }
 }
