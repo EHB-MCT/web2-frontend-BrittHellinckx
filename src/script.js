@@ -2,7 +2,9 @@
 //https://web2-courseproject-britth.herokuapp.com/
 
 "use strict";
-import _ from 'lodash';
+import _, {
+    initial
+} from 'lodash';
 
 window.onload = function () {
     //Generator page
@@ -164,7 +166,65 @@ function loadPosts() {
                 }
             })
             post.innerHTML = htmlString
+            let singlePost = document.getElementsByClassName('singlePost')
+            for (let i = 0; i < singlePost.length; i++) {
+                singlePost[i].addEventListener('click', e => {
+                    e.preventDefault()
+
+                    loadSinglePost(data[i])
+                })
+            }
         });
+}
+
+function loadSinglePost(data) {
+    console.log(data)
+    let focus = document.getElementById('postFocus')
+    focus.style.display = "initial"
+    let htmlString = ""
+
+    if (data.type == "photo") {
+        htmlString += `<div class="singlePost">
+                            <button id="back">< back</button>
+                            <figure class="imgPhoto">
+                                <img src="${data.url}">
+                                <figcaption>Creator</figcaption>
+                            </figure>   
+                            <div class="postInfo">
+                                <p>Type: ${data.type}</p>
+                                <p>Author: ${data.author}</p>
+                                <button id="${data.liked}">Like</button>
+                            </div>
+                        </div>`
+    } else if (data.type == "colour") {
+        htmlString += `<div class="singlePost">
+                            <button id="back">< back</button>
+                            <div class="leftColours">
+                                <div class="imgColours">
+                                    <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c1}">
+                                    <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c2}">
+                                    <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c3}">
+                                    <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c4}">
+                                </div>
+                                <p>Creator</p>
+                            </div>
+                            <div class="postInfo">
+                                <p>Type: ${data.type}</p>
+                                <p>Author: ${data.author}</p>
+                                <button id="${data.liked}">Like</button>
+                            </div>
+                       </div>`
+    }
+    focus.innerHTML = htmlString
+    document.getElementById('back').addEventListener('click', e => {
+        e.preventDefault()
+        focus.style.display = "none"
+    })
+    document.getElementById(data.liked).addEventListener('click', e=>{
+        e.preventDefault()
+        
+    })
+    
 }
 
 ///////////////////////////////////////////PROFILE//////////////////////////////
