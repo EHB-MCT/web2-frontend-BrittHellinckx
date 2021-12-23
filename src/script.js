@@ -57,6 +57,7 @@ async function randomPhoto(number) {
     fetch(`https://picsum.photos/id/${number}/info`)
         .then(response => response.json())
         .then(function (data) {
+            console.log(data.author, data.download_url)
             //Insert photo
             document.getElementById('genBtn').style.display = "none"
             document.getElementById('colour').style.display = "none"
@@ -64,9 +65,9 @@ async function randomPhoto(number) {
                                                         <div>
                                                             <img src="${data.download_url}" alt="random" width="600">
                                                         </div>
-                                                        <button id="save">Save</button>`
+                                                        <button id="saveArt">Save</button>`
             //Save eventlistener
-            document.getElementById('save').addEventListener('click', e => {
+            document.getElementById('saveArt').addEventListener('click', e => {
                 e.preventDefault();
                 savePhoto(data.author, data.download_url);
             });
@@ -74,6 +75,7 @@ async function randomPhoto(number) {
 }
 //Get random colours
 async function randomColours(c1, c2, c3, c4) {
+    console.log(c1, c2, c3, c4)
     //Insert colours
     document.getElementById('genBtn').style.display = "none"
     document.getElementById('photo').style.display = "none"
@@ -84,9 +86,9 @@ async function randomColours(c1, c2, c3, c4) {
                                                         <img src="http://www.thecolorapi.com/id?format=svg&hex=${c3}">
                                                         <img src="http://www.thecolorapi.com/id?format=svg&hex=${c4}">
                                                     </div>
-                                                    <button id="save">Save</button>`
+                                                    <button id="saveArt">Save</button>`
     //Save eventlistener
-    document.getElementById('save').addEventListener('click', e => {
+    document.getElementById('saveArt').addEventListener('click', e => {
         e.preventDefault();
         saveColour(c1, c2, c3, c4);
     });
@@ -110,9 +112,8 @@ function savePhoto(author, url) {
         .then(response => response.json())
         .then(data => {
             console.log('art saved', data);
+            setTimeout(window.location.replace("/docs/pages/profile.html"), 7000)
         });
-    //Go to profile
-    window.location.replace("/docs/pages/profile.html");
 }
 //Save random colour
 function saveColour(c1, c2, c3, c4) {
@@ -135,9 +136,8 @@ function saveColour(c1, c2, c3, c4) {
         .then(response => response.json())
         .then(data => {
             console.log('art saved', data);
+            setTimeout(window.location.replace("/docs/pages/profile.html"), 7000)
         });
-    //Go to profile
-    window.location.replace("/docs/pages/profile.html");
 }
 
 /////////////////////////////////////////////POSTS//////////////////////////////
@@ -460,7 +460,8 @@ function loadSingleArt(id) {
                             </div>
                         </div>`
                 } else if (data.status == "created") {
-                    htmlString += `<button id="change" value="posted">Post</button>
+                    htmlString += `<button id="change" value="saved">Recreate</button>
+                                    <button id="change" value="posted">Post</button>
                                     <button id="delete">Delete</button>
                             </div>
                         </div>`
@@ -493,7 +494,8 @@ function loadSingleArt(id) {
                                     </div>
                                     </div>`
                 } else if (data.status == "created") {
-                    htmlString += `<button id="change" value="posted">Post</button>
+                    htmlString += `<button id="change" value="saved">Recreate</button>
+                                    <button id="change" value="posted">Post</button>
                                     <button id="delete">Delete</button>
                                     </div>
                                     </div>`

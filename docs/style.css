@@ -194,7 +194,7 @@ nav a {
 #postFocus .singlePost {
     display: flex;
     flex-direction: row;
-    margin: 7.5vh 2.5%;
+    margin: 10vh 2.5%;
     width: 100%;
 }
 
@@ -207,11 +207,10 @@ nav a {
     width: 80%;
 }
 
-.colours {
+.imgColours {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 50%;
 }
 
 .imgColours img {
@@ -220,7 +219,7 @@ nav a {
 }
 
 .leftColours {
-    margin-left: 10%
+    margin-left: 20%
 }
 
 .postInfo {
