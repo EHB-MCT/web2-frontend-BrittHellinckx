@@ -269,6 +269,11 @@ nav a {
     padding: 3px 15px;
 }
 
+.profileLink {
+    color: #1d1d1d;
+    text-decoration: none;
+}
+
 /*******************
       PROFILE
 ******************/

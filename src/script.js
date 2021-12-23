@@ -49,6 +49,10 @@ window.onload = function () {
             liked();
         });
     }
+    //Other profile
+    else if (window.location.pathname == '/docs/pages/otherProfile.html') {
+        loadPosts()
+    }
 }
 ///////////////////////////////////////////GENERATOR////////////////////////////
 //Get a random photo
@@ -170,7 +174,6 @@ function loadPosts() {
             for (let i = 0; i < singlePost.length; i++) {
                 singlePost[i].addEventListener('click', e => {
                     e.preventDefault()
-
                     loadSinglePost(data[i]._id)
                 })
             }
@@ -194,7 +197,7 @@ function loadSinglePost(id) {
                             <button id="back">back</button>
                             <figure class="imgPhoto">
                                 <img src="${data.url}">
-                                <figcaption>Creator</figcaption>
+                                <figcaption><a class="profileLink" href="./otherProfile.html">Maaike & Mike</a></figcaption>
                             </figure>   
                             <div class="postInfo">
                                 <p>Type: ${data.type}</p>
@@ -214,7 +217,7 @@ function loadSinglePost(id) {
                                     <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c3}">
                                     <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c4}">
                                 </div>
-                                <p>Creator</p>
+                                <p><a class="profileLink" href="./otherProfile.html">Maaike & Mike</a></p>
                             </div>
                             <div class="postInfo">
                                 <p>Type: ${data.type}</p>
