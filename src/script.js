@@ -290,8 +290,7 @@ function saved() {
             savedDoc.innerHTML = htmlString
             for (let i = 0; i < profilePost.length; i++) {
                 profilePost[i].addEventListener('click', e => {
-                    e.preventDefault()
-                    loadProfilePost(data)
+                    loadSingleArt(e.target.id)
                 })
             }
         });
@@ -333,8 +332,7 @@ function art() {
             artDoc.innerHTML = htmlString
             for (let i = 0; i < profilePost.length; i++) {
                 profilePost[i].addEventListener('click', e => {
-                    e.preventDefault()
-                    loadProfilePost(data)
+                    loadSingleArt(e.target.id)
                 })
             }
         });
@@ -376,8 +374,7 @@ function posts() {
             postDoc.innerHTML = htmlString
             for (let i = 0; i < profilePost.length; i++) {
                 profilePost[i].addEventListener('click', e => {
-                    e.preventDefault()
-                    loadProfilePost(data)
+                    loadSingleArt(e.target.id)
                 })
             }
         });
@@ -406,7 +403,7 @@ function liked() {
                                             <img id="${like._id}" src="${like.url}"> 
                                         </div>`
                     } else if (like.type == "colour") {
-                        htmlString += `<div id="gg" class="selectPost">
+                        htmlString += `<div class="selectPost">
                                         <img id="${like._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c1}">
                                         <img id="${like._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c2}">
                                         <img id="${like._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${like.c3}">
@@ -417,8 +414,6 @@ function liked() {
                 }
             })
             likeDoc.innerHTML = htmlString
-            //
-
             for (let i = 0; i < profilePost.length; i++) {
                 profilePost[i].addEventListener('click', e => {
                     loadSinglePost(e.target.id)
