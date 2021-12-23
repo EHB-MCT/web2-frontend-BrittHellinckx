@@ -177,14 +177,18 @@ function loadPosts() {
         });
 }
 
+//Get one post
 function loadSinglePost(id) {
+    //Show pop-up box
     let focus = document.getElementById('postFocus')
     focus.style.display = "initial"
     let htmlString = ""
 
+    //Fetch singular post
     fetch(`https://web2-courseproject-britth.herokuapp.com/posts/:?id=${id}`)
         .then(response => response.json())
         .then(function (data) {
+            //Photo
             if (data.type == "photo") {
                 htmlString += `<div class="singlePost">
                             <button id="back">back</button>
@@ -198,7 +202,9 @@ function loadSinglePost(id) {
                                 <button id="${data.liked}">Like</button>
                             </div>
                         </div>`
-            } else if (data.type == "colour") {
+            }
+            //Colour
+            else if (data.type == "colour") {
                 htmlString += `<div class="singlePost">
                             <button id="back">back</button>
                             <div class="leftColours">
@@ -218,10 +224,13 @@ function loadSinglePost(id) {
                        </div>`
             }
             focus.innerHTML = htmlString
+
+            //Backbutton eventlistener
             document.getElementById('back').addEventListener('click', e => {
                 e.preventDefault()
                 focus.style.display = "none"
             })
+            //Like & unlike eventlistener
             document.getElementById(data.liked).addEventListener('click', e => {
                 e.preventDefault()
                 like(data)
@@ -229,11 +238,14 @@ function loadSinglePost(id) {
         })
 }
 
+//Like & unlike posts
 function like(postData) {
+    //Set like(true) or unlike (false)
     let liked = !postData.liked;
     let updateLiked = {
         liked
     }
+    //Fetch patch for post
     fetch(`https://web2-courseproject-britth.herokuapp.com/posts/:?id=${postData._id}`, {
             method: 'PATCH',
             headers: {
@@ -422,15 +434,16 @@ function liked() {
 
 //Load a single artpiece
 function loadSingleArt(id) {
+    //Show pop-up box
     let focus = document.getElementById('postFocus')
     focus.style.display = "initial"
     let htmlString = ""
 
+    //Fetch singular artpiece
     fetch(`https://web2-courseproject-britth.herokuapp.com/artpieces/:?id=${id}`)
         .then(response => response.json())
         .then(function (data) {
-            console.log(data)
-            //PHOTO
+            //Photo
             if (data.type == "photo") {
                 htmlString += `<div class="singlePost">
                                 <button id="back">back</button>
@@ -458,7 +471,7 @@ function loadSingleArt(id) {
                         </div>`
                 }
             }
-            //COLOUR
+            //Colour
             else if (data.type == "colour") {
                 htmlString += `<div class="singlePost">
                             <button id="back">back</button>
@@ -492,14 +505,17 @@ function loadSingleArt(id) {
                 }
             }
             focus.innerHTML = htmlString
+            //Back button eventlistener
             document.getElementById('back').addEventListener('click', e => {
                 e.preventDefault()
                 focus.style.display = "none"
             })
+            //Delete eventlistener
             document.getElementById('delete').addEventListener('click', e => {
                 e.preventDefault()
                 deleteArt(data._id);
             })
+            //Change eventlistener
             document.getElementById('change').addEventListener('click', e => {
                 let changeInto = document.getElementById('change').value
                 e.preventDefault()
@@ -507,9 +523,9 @@ function loadSingleArt(id) {
             })
         })
 }
-
+//Delete an artpiece
 function deleteArt(id) {
-    console.log(id)
+    //Fetch delete for artpiece
     fetch(`https://web2-courseproject-britth.herokuapp.com/artpieces/:?id=${id}`, {
             method: 'DELETE'
         })
@@ -519,12 +535,13 @@ function deleteArt(id) {
             setTimeout(window.location.reload(), 7000)
         });
 }
-
+//Change an artpiece
 function changeArt(id, status) {
+    //Set new status
     let art = {
         status
     }
-
+    //Fetch patch for artpiece
     fetch(`https://web2-courseproject-britth.herokuapp.com/artpieces/:?id=${id}`, {
             method: 'PATCH',
             headers: {
