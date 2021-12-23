@@ -6,8 +6,6 @@ import _, {
     initial
 } from 'lodash';
 
-
-
 window.onload = function () {
     //Generator page
     if (window.location.pathname == '/docs/pages/generator.html') {
@@ -274,14 +272,14 @@ function saved() {
                 if (saved.status == "saved") {
                     if (saved.type == "photo") {
                         htmlString += `<div class="selectPost">
-                                            <img  src="${saved.url}"> 
+                                            <img id="${saved._id}" src="${saved.url}"> 
                                         </div>`
                     } else if (saved.type == "colour") {
                         htmlString += `<div class="selectPost">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${saved.c1}">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${saved.c2}">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${saved.c3}">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${saved.c4}">
+                                            <img id="${saved._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${saved.c1}">
+                                            <img id="${saved._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${saved.c2}">
+                                            <img id="${saved._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${saved.c3}">
+                                            <img id="${saved._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${saved.c4}">
                                        </div>`
                     }
                     return;
@@ -316,14 +314,14 @@ function art() {
                 if (art.status == "created") {
                     if (art.type == "photo") {
                         htmlString += `<div class="selectPost">
-                                            <img  src="${art.url}"> 
+                                            <img id="${art._id}" src="${art.url}"> 
                                         </div>`
                     } else if (art.type == "colour") {
                         htmlString += `<div class="selectPost">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${art.c1}">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${art.c2}">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${art.c3}">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${art.c4}">
+                                            <img id="${art._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${art.c1}">
+                                            <img id="${art._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${art.c2}">
+                                            <img id="${art._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${art.c3}">
+                                            <img id="${art._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${art.c4}">
                                        </div>`
                     }
                     return;
@@ -358,14 +356,14 @@ function posts() {
                 if (post.status == "posted") {
                     if (post.type == "photo") {
                         htmlString += `<div class="selectPost">
-                                            <img  src="${post.url}"> 
+                                            <img id="${post._id}" src="${post.url}"> 
                                         </div>`
                     } else if (post.type == "colour") {
                         htmlString += `<div class="selectPost">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${post.c1}">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${post.c2}">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${post.c3}">
-                                            <img class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${post.c4}">
+                                            <img id="${post._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${post.c1}">
+                                            <img id="${post._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${post.c2}">
+                                            <img id="${post._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${post.c3}">
+                                            <img id="${post._id}" class="colourSelect" src="http://www.thecolorapi.com/id?format=svg&hex=${post.c4}">
                                        </div>`
                     }
                     return;
@@ -420,4 +418,107 @@ function liked() {
                 })
             }
         });
+}
+
+//Load a single artpiece
+function loadSingleArt(id) {
+    let focus = document.getElementById('postFocus')
+    focus.style.display = "initial"
+    let htmlString = ""
+
+    fetch(`https://web2-courseproject-britth.herokuapp.com/artpieces/:?id=${id}`)
+        .then(response => response.json())
+        .then(function (data) {
+            console.log(data)
+            //PHOTO
+            if (data.type == "photo") {
+                htmlString += `<div class="singlePost">
+                                <button id="back">back</button>
+                                <figure class="imgPhoto">
+                                    <img src="${data.url}">
+                                    <figcaption>Creator</figcaption>
+                                </figure>   
+                                <div class="postInfo">
+                                    <p>Type: ${data.type}</p>
+                                    <p>Author: ${data.author}</p>`
+                if (data.status == "saved") {
+                    htmlString += `<button id="change" value:"create">Create</button>
+                                    <button id="delete">Delete</button>
+                            </div>
+                        </div>`
+                } else if (data.status == "created") {
+                    htmlString += `<button id="change" value:"post">Post</button>
+                                    <button id="delete">Delete</button>
+                            </div>
+                        </div>`
+                } else {
+                    htmlString += `<button id="change" value:"create">Unpost</button>
+                                    <button id="delete">Delete</button>
+                            </div>
+                        </div>`
+                }
+            }
+            //COLOUR
+            else if (data.type == "colour") {
+                htmlString += `<div class="singlePost">
+                            <button id="back">back</button>
+                            <div class="leftColours">
+                                <div class="imgColours">
+                                    <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c1}">
+                                    <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c2}">
+                                    <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c3}">
+                                    <img src="http://www.thecolorapi.com/id?format=svg&hex=${data.c4}">
+                                </div>
+                                <p>Creator</p>
+                            </div>
+                            <div class="postInfo">
+                                <p>Type: ${data.type}</p>
+                                <p>Author: ${data.author}</p>`
+                if (data.status == "saved") {
+                    htmlString += `<button id="change" value:"create">Create</button>
+                                    <button id="delete">Delete</button>
+                                    </div>
+                                    </div>`
+                } else if (data.status == "created") {
+                    htmlString += `<button id="change" value:"post">Post</button>
+                                    <button id="delete">Delete</button>
+                                    </div>
+                                    </div>`
+                } else {
+                    htmlString += `<button id="change" value:"create">Unpost</button>
+                                    <button id="delete">Delete</button>
+                                    </div>
+                                    </div>`
+                }
+            }
+            focus.innerHTML = htmlString
+            document.getElementById('back').addEventListener('click', e => {
+                e.preventDefault()
+                focus.style.display = "none"
+            })
+            document.getElementById('delete').addEventListener('click', e => {
+                e.preventDefault()
+                deleteArt(data._id);
+            })
+            document.getElementById('change').addEventListener('click', e => {
+                e.preventDefault()
+                changeArt(data)
+            })
+        })
+}
+
+function deleteArt(id) {
+    console.log(id)
+    fetch(`https://web2-courseproject-britth.herokuapp.com/artpieces/:?id=${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(`Artpiece deleted with id: ${id}`, data);
+            setTimeout(window.location.reload(), 7000)
+        });
+}
+
+function changeArt() {
+
 }
